@@ -6,8 +6,10 @@
 
   <div class="panel panel-default items">
    <% if enhanced_cart.empty? %>
-      <P> Your cart is currently empty. </p>
-      <%= link_to "Go to Home", root_path, class: "btn btn-primary" %>
+    <div class="alert alert-info">
+      Your Jungle cart is currently empty.
+      <%= link_to "Go to Home", root_path %>
+    </div>
       <% else %>
     <table class="table table-bordered">
       <thead>
