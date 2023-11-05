@@ -16,7 +16,11 @@ Rails.application.routes.draw do
     root to: 'dashboard#show'
     resources :products, except: [:edit, :update, :show]
   end
-  
+
+  namespace :admin do
+    resources :categories, only: [:index, :new, :create]
+  end
+
  # Add the route for the About Page
   get 'about', to: 'about#index', as: 'about'
 
