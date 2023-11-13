@@ -53,5 +53,25 @@ RSpec.describe User, type: :model do
     end
 
   end
+
+  describe '.authenticate_with_credentials' do
+    it 'returns the user if authenticated' do
+      user = create(:user, email: 'test@example.com', password: 'password')
+      authenticated_user = User.authenticate_with_credentials('test@example.com', 'password')
+      expect(authenticated_user).to eq(user)
+    end
+
+    it 'returns nil if not authenticated' do
+      user = create(:user, email: 'test@example.com', password: 'password')
+      authenticated_user = User.authenticate_with_credentials('test@example.com', 'wrong_password')
+      expect(authenticated_user).to be_nil
+    end
+
+    it 'returns nil if user not found' do
+      authenticated_user = User.authenticate_with_credentials('nonexistent@example.com', 'password')
+      expect(authenticated_user).to be_nil
+    end
+
+  end
 end
 
