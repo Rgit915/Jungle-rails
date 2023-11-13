@@ -5,6 +5,7 @@ require_relative '../config/environment'
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
+# require 'shoulda/matchers' # this line to include Shoulda Matchers
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -56,6 +57,16 @@ RSpec.configure do |config|
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
+
+  # Add this block for Shoulda Matchers configuration
+  # Shoulda::Matchers.configure do |shoulda_config|
+  #   shoulda_config.integrate do |with|
+  #     with.test_framework :rspec
+  #     with.library :rails
+  #   end
+  # end
+
+  config.include FactoryBot::Syntax::Methods
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
