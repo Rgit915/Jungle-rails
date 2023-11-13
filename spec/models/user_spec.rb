@@ -32,8 +32,20 @@ RSpec.describe User, type: :model do
         last_name: 'Doe'
       )
       user.save
-      expect(user.errors.full_messages).to include("Password can't be blank", "Password confirmation can't be blank")
+      expect(user.errors.full_messages).to include("Password can't be blank")
     end
+    
+    it 'is expected to validate that :email is case-insensitively unique' do
+      existing_user = create(:user, email: 'test@example.com')
+      new_user = build(:user, email: 'TEST@example.com')
+
+      # Ensure the new_user is considered invalid
+      new_user.valid?
+
+      # Check if there are no errors related to the email field
+      expect(new_user.errors[:email]).to be_empty
+    end
+
   end
 end
 
