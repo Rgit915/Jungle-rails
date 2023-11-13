@@ -34,7 +34,7 @@ RSpec.describe User, type: :model do
       user.save
       expect(user.errors.full_messages).to include("Password can't be blank")
     end
-    
+
     it 'is expected to validate that :email is case-insensitively unique' do
       existing_user = create(:user, email: 'test@example.com')
       new_user = build(:user, email: 'TEST@example.com')
@@ -44,6 +44,12 @@ RSpec.describe User, type: :model do
 
       # Check if there are no errors related to the email field
       expect(new_user.errors[:email]).to be_empty
+    end
+
+    it 'requires a minimum password length' do
+      user = User.new(password: 'short')
+      user.valid?
+      expect(user.errors.full_messages).to include("Password is too short (minimum is 8 characters)")
     end
 
   end
